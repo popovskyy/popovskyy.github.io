@@ -2,13 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script
-            src="https://code.jquery.com/jquery-3.4.1.js"
-            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-            crossorigin="anonymous"></script>
-
+    <title>Список покупок</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
+        body {
+            margin: 0;
+        }
+        #app {
+            width: 90%;
+            max-width: 600px;
+            padding: 10px 20px;
+            background: lightgrey;
+            border: 1px solid grey;
+            border-radius: 3px;
+            margin: 0 auto;
+            font-size: 20px;
+        }
         input {
             border: 5px solid white;
             -webkit-box-shadow:
@@ -24,7 +33,12 @@
             background: rgba(255,255,255,0.5);
             margin: 0 0 10px 0;
             box-sizing: border-box;
+            font-size: 18px;
             outline: none;
+        }
+
+        #ready-list {
+            color: green;
         }
         #addNewListItem {
             color: #20bf6b !important;
@@ -37,6 +51,7 @@
             transition: all 0.3s ease 0s;
             box-sizing: border-box;
             outline: none;
+            font-size: 18px;
         }
         #addNewListItem:hover {
             color: #494949 !important;
@@ -44,16 +59,45 @@
             border-color: #494949 !important;
             transition: all 0.3s ease 0s;
         }
-    </style>
 
+        .list li:hover {
+            cursor: pointer;
+        }
+
+        .ready-list .remove-item {
+            display: none;
+        }
+
+        .remove-item {
+            color: red;
+            font-weight: 700;
+            font-size: 30px;
+            line-height: 1;
+            position: relative;
+            bottom: -4px;
+            cursor: pointer;
+            left: -15px;
+        }
+
+        .list-item .text {
+            padding-right: 20px;
+            display: inline-block;
+        }
+
+        .add-itm {
+            position: relative;
+            pointer-events: none;
+            left: -20px;
+        }
+
+    </style>
 </head>
 <body>
 <div id="app">
     <form action="#">
-        <input type="text" id="newText" placeholder="Додати до списку">
-        <button id="addNewListItem">Додати</button>
+        <input type="text" id="newText" placeholder="Добавить в список...">
+        <button id="addNewListItem">Добавить</button>
     </form>
-
     <div>
         <h2>Список покупок</h2>
         <ul id="list" class="list"></ul>
@@ -89,7 +133,9 @@
           localStorage.setItem("todosList", JSON.stringify(todosList));
           if (todosList !== null) {
               todosList.map(function (element, key) {
-                  html += `<li class='list-item' data-list-id="${key}">${element} &#x2714;</li>`;
+                  html += `<li class='list-item' data-list-id="${key}"><span class="text">${element}</span>
+                            <span data-list-id="${key}" class="add-itm">&#x2714;</span>
+                            <span data-list-id="${key}" class="remove-item">&times;</span></li>`;
               });
               list.innerHTML = html
           }
@@ -125,14 +171,19 @@
        });
 
        document.addEventListener('click',function(e){
-          if (e.target && e.target.className === 'list-item'){
+          if (e.target && e.target.className === 'text'){
               var itemKey = e.target.getAttribute('data-list-id');
-
               todosListReady.push(e.target.textContent);
               todosList.splice(itemKey, 1);
               todosRender();
               todosReadyRender();
           }
+           if (e.target && e.target.className === 'remove-item'){
+               var itemKey = e.target.getAttribute('data-list-id');
+               todosList.splice(itemKey, 1);
+               todosRender();
+               todosReadyRender();
+           }
       });
 
        clearBtn.addEventListener('click', function (e) {
