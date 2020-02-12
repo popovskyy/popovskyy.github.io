@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Test</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="customer">
+            <div class="customer-section">
+                <button class="primary-btn sign-in-btn">Sign in</button>
+            </div>
+            <div class="customer-section">
+                <button class="primary-btn sign-up-btn">Sign Up</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-wrapper">
+        <div class="modal-content">
+            <div class="modal-tabs">
+                <ul class="tabs-links">
+                    <li><a href="#tabs-1">Sign in</a></li>
+                    <li><a href="#tabs-2">New Account</a></li>
+                </ul>
+                <div id="tabs-1" class="tabs-content">
+                    <div class="form-wrapper">
+                        <form action="#" method="post" class="form">
+                            <div class="field">
+                                <input type="email" placeholder="Email" class="input input-email" name="email"/>
+                                <span class="control"></span>
+                            </div>
+                            <div class="field">
+                                <input type="text" placeholder="Password" class="input password" name="password" />
+                                <span class="show-hide-btn">Hide</span>
+                                <span class="control"></span>
+                            </div>
+                            <div class="field">
+                                <input type="checkbox" class="checkbox" name="remember" id="remember-me">
+                                <label for="remember-me">Remember me</label>
+                            </div>
+                            <button type="submit" class="submit">Login</button>
+                        </form>
+                        <a href="#" class="forgot-link">Forgot your password ?</a>
+                    </div>
+                    <div class="forgot-password form-wrapper">
+                        <div class="forgot-information">
+                            Lost your password? Please enter your email address.
+                            You will receive a link to create new password.
+                        </div>
+                        <form action="#" method="post" class="form">
+                            <div class="field">
+                                <input type="email" placeholder="Email" class="input input-email" name="email"/>
+                                <span class="control"></span>
+                            </div>
+                            <button type="submit" class="submit">Reset Password</button>
+                        </form>
+                        <a href="#" class="forgot-link">Back to Log-In</a>
+                    </div>
+                </div>
+                <div id="tabs-2" class="tabs-content">
+                    <form action="#" method="post" class="form">
+                        <div class="field">
+                            <input type="text" placeholder="User Name" class="input input-name" name="user-name" />
+                            <span class="control"></span>
+                        </div>
+                        <div class="field">
+                            <input type="email" placeholder="Email" class="input input-email" name="email"/>
+                            <span class="control"></span>
+                        </div>
+                        <div class="field">
+                            <input type="text" placeholder="Password" class="input password" name="password" />
+                            <span class="control"></span>
+                            <span class="show-hide-btn">Hide</span>
+                        </div>
+                        <div class="field">
+                            <input type="text" placeholder="Confirm Password" class="input password" name="confirm-password" />
+                            <span class="control"></span>
+                            <span class="show-hide-btn">Hide</span>
+                        </div>
+                        <div class="field">
+                            <input type="checkbox" class="checkbox" name="remember" id="aggree-terms">
+                            <label for="aggree-terms">I aggree to the <a href="#" class="link">Terms</a></label>
+                        </div>
+                        <button type="submit" class="submit">Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
