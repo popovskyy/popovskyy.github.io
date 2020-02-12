@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+
+    <style>
+        input {
+            border: 5px solid white;
+            -webkit-box-shadow:
+                    inset 0 0 8px  rgba(0,0,0,0.1),
+                    0 0 16px rgba(0,0,0,0.1);
+            -moz-box-shadow:
+                    inset 0 0 8px  rgba(0,0,0,0.1),
+                    0 0 16px rgba(0,0,0,0.1);
+            box-shadow:
+                    inset 0 0 8px  rgba(0,0,0,0.1),
+                    0 0 16px rgba(0,0,0,0.1);
+            padding: 15px;
+            background: rgba(255,255,255,0.5);
+            margin: 0 0 10px 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+        #addNewListItem {
+            color: #20bf6b !important;
+            text-transform: uppercase;
+            background: #ffffff;
+            padding: 15px;
+            border: 4px solid #20bf6b !important;
+            border-radius: 6px;
+            display: inline-block;
+            transition: all 0.3s ease 0s;
+            box-sizing: border-box;
+            outline: none;
+        }
+        #addNewListItem:hover {
+            color: #494949 !important;
+            border-radius: 50px;
+            border-color: #494949 !important;
+            transition: all 0.3s ease 0s;
+        }
+    </style>
+
+</head>
+<body>
+<div id="app">
+    <form action="#">
+        <input type="text" id="newText" placeholder="Додати до списку">
+        <button id="addNewListItem">Додати</button>
+    </form>
+
+    <div>
+        <h2>Список покупок</h2>
+        <ul id="list" class="list"></ul>
+    </div>
+    <div>
+        <h4>Куплено</h4>
+        <ul id="ready-list" class="list"></ul>
+    </div>
+    <button id="clear">Очистить</button>
+</div>
+
+<script>
+  var app = document.getElementById('app'),
+      newText = document.getElementById('newText'),
+      addNewBtn = document.getElementById('addNewListItem'),
+      list = document.getElementById('list'),
+      readyList = document.getElementById('ready-list'),
+      todosList = JSON.parse(localStorage.getItem("todosList")),
+      todosListReady = JSON.parse(localStorage.getItem("readyTodosList")),
+      clearBtn = document.getElementById('clear'),
+      html;
+
+      function addNewTodo() {
+          if (newText.value !== '') {
+              todosList.push(newText.value);
+              newText.value = '';
+              todosRender();
+          }
+      }
+
+      function todosRender() {
+          html = '';
+          localStorage.setItem("todosList", JSON.stringify(todosList));
+          if (todosList !== null) {
+              todosList.map(function (element, key) {
+                  html += `<li class='list-item' data-list-id="${key}">${element} &#x2714;</li>`;
+              });
+              list.innerHTML = html
+          }
+          else {
+              todosList = [];
+          }
+      }
+
+      function todosReadyRender() {
+          html = '';
+
+          localStorage.setItem("readyTodosList", JSON.stringify(todosListReady));
+          if (todosListReady !== null) {
+              todosListReady.map(function(element, key) {
+                  html += `<li class='ready-list-item' data-list-id="${key}">${element} </li>`;
+              });
+              readyList.innerHTML = html
+          }
+          else  {
+              todosListReady = [];
+          }
+      }
+
+      function clearTodos() {
+          todosList = [];
+          todosListReady = [];
+          todosRender();
+          todosReadyRender();
+      }
+
+       addNewBtn.addEventListener('click', function () {
+           addNewTodo();
+       });
+
+       document.addEventListener('click',function(e){
+          if (e.target && e.target.className === 'list-item'){
+              var itemKey = e.target.getAttribute('data-list-id');
+
+              todosListReady.push(e.target.textContent);
+              todosList.splice(itemKey, 1);
+              todosRender();
+              todosReadyRender();
+          }
+      });
+
+       clearBtn.addEventListener('click', function (e) {
+           clearTodos();
+       });
+
+        todosRender();
+        todosReadyRender();
+</script>
+
+</body>
+</html>
