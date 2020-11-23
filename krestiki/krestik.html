@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 100px auto;
+        }
+
+         td {
+             border: 1px solid black;
+             width: 100px;
+             height: 100px;
+             text-align: center;
+             font-size: 50px;
+        }
+
+         h1 {
+             text-align: center;
+         }
+
+         .winner {
+             width: 300px;
+             margin: 100px auto;
+         }
+
+    </style>
+    
+</head>
+<body>
+<h1 class="current">X</h1>
+<table>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+<div class="winner">
+    <img src="artem.gif" alt="img" class="artem" style="display: none">
+    <img src="tato.gif" alt="img" class="tato" style="display: none">
+
+
+    <button class='new-game-btn' style="display: none">НОВА ГРА</button>
+</div>
+
+<script>
+
+    $(document).ready(function (){
+        _init();
+    })
+
+    let curUser = 'x';
+
+    function _init() {
+        _click(curUser);
+
+        _clickRefresh();
+    }
+
+    function _checkCells() {
+
+        if ($('td').eq(0).text() === $('td').eq(1).text() && $('td').eq(1).text() === $('td').eq(2).text() && $('td').eq(0).text() !== '') {
+            _winner($('td').eq(0).text());
+
+            $('table').css('pointer-events', 'none');
+        }
+
+        else if ($('td').eq(3).text() === $('td').eq(4).text() && $('td').eq(4).text() === $('td').eq(5).text() && $('td').eq(3).text() !== '') {
+            _winner($('td').eq(3).text());
+
+            $('table').css('pointer-events', 'none');
+        }
+
+        else if ($('td').eq(6).text() === $('td').eq(7).text() && $('td').eq(7).text() === $('td').eq(8).text() && $('td').eq(6).text() !== '') {
+            _winner($('td').eq(6).text());
+
+            $('table').css('pointer-events', 'none');
+        }
+
+        else if ($('td').eq(0).text() === $('td').eq(3).text() && $('td').eq(3).text() === $('td').eq(6).text() && $('td').eq(0).text() !== '') {
+            _winner($('td').eq(0).text());
+
+            $('table').css('pointer-events', 'none');
+        }
+
+        else if ($('td').eq(1).text() === $('td').eq(4).text() && $('td').eq(4).text() === $('td').eq(7).text() && $('td').eq(1).text() !== '') {
+            _winner($('td').eq(1).text());
+
+            $('table').css('pointer-events', 'none');
+        }
+
+        else if ($('td').eq(2).text() === $('td').eq(5).text() && $('td').eq(5).text() === $('td').eq(8).text() && $('td').eq(2).text() !== '') {
+            _winner($('td').eq(2).text());
+
+            $('table').css('pointer-events', 'none');
+        }
+
+        else if ($('td').eq(0).text() === $('td').eq(4).text() && $('td').eq(4).text() === $('td').eq(8).text() && $('td').eq(0).text() !== '') {
+            _winner($('td').eq(0).text());
+
+            $('table').css('pointer-events', 'none');
+        }
+
+        else if ($('td').eq(2).text() === $('td').eq(4).text() && $('td').eq(4).text() === $('td').eq(6).text() && $('td').eq(2).text() !== '') {
+            _winner($('td').eq(2).text());
+
+            $('table').css('pointer-events', 'none');
+        }
+
+    }
+
+    function _winner(win) {
+
+        if (win === 'x') {
+            let audioX = new Audio('https://cdn-static.namobilu.com/u/ring/f/414/089/hammali_navai_pryatki.mp3');
+
+            $('.artem').show();
+
+            $('.current').text('АРТЕМ ВИГРАВ')
+
+            audioX.play();
+        }
+        else if (win === '0') {
+            let audioY = new Audio('https://cdn10.sefon.pro/files/prev/14/PSY%20-%20Gangnam%20Style%20%28192kbps%29.mp3');
+
+            $('.tato').show();
+            $('.new-game-btn').show();
+            $('.current').text('ТАТО ВИГРАВ')
+
+            audioY.play();
+        }
+
+        else {
+            $('.current').text('НІЧІЯ');
+        }
+
+    }
+
+    function _click(curUser) {
+        $('td').click(function () {
+
+            $(this).text(curUser).css('pointer-events', 'none');
+
+            if (curUser === 'x') {
+                curUser = '0';
+
+                $('.current').text('0')
+            } else {
+                curUser = 'x';
+                $('.current').text('X')
+            }
+
+            _checkCells();
+        });
+    }
+
+    function _clickRefresh () {
+        $('.new-game-btn').click(function () {
+            window.location.reload();
+        })
+    }
+</script>
+
+</body>
+</html>
