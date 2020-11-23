@@ -129,6 +129,11 @@
             $('table').css('pointer-events', 'none');
         }
 
+        else if ($('td').text().length === 9) {
+            $('.current').text('НІЧІЯ');
+            $('.new-game-btn').show();
+        }
+
     }
 
     function _winner(win) {
@@ -137,6 +142,8 @@
             let audioX = new Audio('https://cdn-static.namobilu.com/u/ring/f/414/089/hammali_navai_pryatki.mp3');
 
             $('.artem').show();
+
+            $('.new-game-btn').show();
 
             $('.current').text('АРТЕМ ВИГРАВ')
 
